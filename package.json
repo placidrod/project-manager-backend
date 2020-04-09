@@ -1,0 +1,12 @@
+{
+  "name": "express-sql",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Placid Rodrigues <placidrod@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.13",
+    "sqlite3": "^4.1.1"
+  }
+}
