@@ -1,0 +1,28 @@
+###
+GET http://localhost:9970/tasks
+###
+GET http://localhost:9970/users
+###
+POST http://localhost:8888/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+GET http://localhost:8888/resource
+
+###
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE1Nzk2NzEzNDEsImV4cCI6MTU3OTY4MjE0MX0.Xo0N-WLq0hUToQ_paSb2XjbqtfHwNx2hayqBpFRF_hw
+
+GET http://localhost:8888/resource/secret
+Content-Type: application/json
+Authorization: Bearer {{token}}
+```
+
+###
+
