@@ -24,4 +24,14 @@ app.get('/users', async (req, res) => {
   }
 });
 
+app.get('/tasksWithUsers', async (req, res) => {
+  try {
+    const tasksWithUsers = await db.getTasksWithUsers();
+    return res.status(200).json({ tasksWithUsers });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(port, () => console.log(`Server listening on port ${port}`));

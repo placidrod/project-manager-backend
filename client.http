@@ -3,6 +3,8 @@ GET http://localhost:9970/tasks
 ###
 GET http://localhost:9970/users
 ###
+GET http://localhost:9970/tasksWithUsers
+###
 POST http://localhost:8888/login
 Content-Type: application/json
 
