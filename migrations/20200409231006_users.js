@@ -1,4 +1,4 @@
-const tableName = 'users';
+const tableName = 'users'
 
 exports.up = function (knex) {
   return knex.raw(`
@@ -9,9 +9,9 @@ exports.up = function (knex) {
       created_at                timestamp,
       updated_at                timestamp
     )
-  `);
-};
+  `)
+}
 
 exports.down = function (knex) {
-  return knex.schema.dropTable(tableName);
-};
+  return knex.schema.dropTable(tableName)
+}
