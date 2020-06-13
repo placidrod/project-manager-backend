@@ -15,6 +15,14 @@ Content-Type: application/json
   "title": "Yellow"
 }
 ###
+POST http://localhost:9970/project
+Content-Type: application/json
+
+{
+  "title": "yaay",
+  "team_id": 1
+}
+###
 
 POST http://localhost:8888/login
 Content-Type: application/json

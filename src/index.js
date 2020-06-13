@@ -57,6 +57,18 @@ app.post('/team', async (req, res) => {
   }
 })
 
+app.post('/project', async (req, res) => {
+  try {
+    const title = req.body.title
+    const team_id = req.body.team_id
+    await db.addProject(title, team_id)
+    return res.status(200).json({ title, team_id })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
 // app.get('/tasksWithUsers', async (req, res) => {
 //   try {
 //     const tasksWithUsers = await db.getTasksWithUsers()
