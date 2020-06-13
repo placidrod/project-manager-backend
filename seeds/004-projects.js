@@ -1,4 +1,4 @@
-const tableName = 'users'
+const tableName = 'projects'
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
@@ -9,19 +9,14 @@ exports.seed = function (knex) {
       return knex(tableName).insert([
         {
           id: 1,
-          username: 'julian',
-          team_id: 1
+          title: "list projects for current team",
+          team_id: 1,
         },
         {
           id: 2,
-          username: 'nilima',
-          team_id: 1
-        },
-        {
-          id: 3,
-          username: 'placid',
-          team_id: 1
-        },
+          title: "add project for current team",
+          team_id: 1,
+        }
       ])
     })
 }

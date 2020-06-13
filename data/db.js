@@ -1,15 +1,14 @@
 const knex = require('knex')
 const config = require('../knexfile.js')
 
-const db = knex(config.development)
+const dao = knex(config.development)
 
-const getTasks = () => db('tasks')
-const getUsers = () => db('users')
-const getTasksWithUsers = () =>
-  db.raw(`select t.*, u.username from tasks t join users u on u.id = t.user_id`)
-
-module.exports = {
-  getTasks,
-  getUsers,
-  getTasksWithUsers,
+const db = {
+  getTasks: () => dao('tasks'),
+  getUsers: () => dao('users'),
+  getTeams: () => dao('teams'),
+  getProjects: () => dao('projects'),
+  getTasksWithUsers: () => dao.raw(`select t.*, u.username from tasks t join users u on u.id = t.user_id`)
 }
+
+module.exports = db;

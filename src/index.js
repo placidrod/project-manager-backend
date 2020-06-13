@@ -1,8 +1,10 @@
 const express = require('express')
 const db = require('../data/db')
+const bp = require('body-parser')
 
 const port = process.env.PORT || 9970
 const app = express()
+app.use(bp.json())
 
 app.get('/tasks', async (req, res) => {
   try {
@@ -24,14 +26,46 @@ app.get('/users', async (req, res) => {
   }
 })
 
-app.get('/tasksWithUsers', async (req, res) => {
+app.get('/teams', async (req, res) => {
   try {
-    const tasksWithUsers = await db.getTasksWithUsers()
-    return res.status(200).json({ tasksWithUsers })
+    const teams = await db.getTeams()
+    return res.status(200).json({ teams })
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })
   }
 })
+
+app.get('/projects', async (req, res) => {
+  try {
+    const projects = await db.getProjects()
+    return res.status(200).json({ projects })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// app.post('/team', async (req, res) => {
+//   console.log('Placid logging HERE HERE')
+//   try {
+//     const title = req.body.title
+//     console.log(title)
+//     return res.status(200).end()
+//   } catch (err) {
+//     console.log(err)
+//     res.status(500).json({ error: err.message })
+//   }
+// })
+
+// app.get('/tasksWithUsers', async (req, res) => {
+//   try {
+//     const tasksWithUsers = await db.getTasksWithUsers()
+//     return res.status(200).json({ tasksWithUsers })
+//   } catch (err) {
+//     console.log(err)
+//     res.status(500).json({ error: err.message })
+//   }
+// })
 
 app.listen(port, () => console.log(`Server listening on port ${port}`))

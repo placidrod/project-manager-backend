@@ -3,8 +3,19 @@ GET http://localhost:9970/tasks
 ###
 GET http://localhost:9970/users
 ###
-GET http://localhost:9970/tasksWithUsers
+GET http://localhost:9970/teams
 ###
+GET http://localhost:9970/projects
+###
+
+# POST http://localhost:9970/team
+# Content-Type: application/json
+
+# {
+#   "title": "Yellow"
+# }
+###
+
 POST http://localhost:8888/login
 Content-Type: application/json
 
