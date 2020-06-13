@@ -8,12 +8,12 @@ GET http://localhost:9970/teams
 GET http://localhost:9970/projects
 ###
 
-# POST http://localhost:9970/team
-# Content-Type: application/json
+POST http://localhost:9970/team
+Content-Type: application/json
 
-# {
-#   "title": "Yellow"
-# }
+{
+  "title": "Yellow"
+}
 ###
 
 POST http://localhost:8888/login

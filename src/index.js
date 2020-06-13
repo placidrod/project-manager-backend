@@ -46,17 +46,16 @@ app.get('/projects', async (req, res) => {
   }
 })
 
-// app.post('/team', async (req, res) => {
-//   console.log('Placid logging HERE HERE')
-//   try {
-//     const title = req.body.title
-//     console.log(title)
-//     return res.status(200).end()
-//   } catch (err) {
-//     console.log(err)
-//     res.status(500).json({ error: err.message })
-//   }
-// })
+app.post('/team', async (req, res) => {
+  try {
+    const title = req.body.title
+    await db.addTeam(title)
+    return res.status(200).json({ title })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
 
 // app.get('/tasksWithUsers', async (req, res) => {
 //   try {

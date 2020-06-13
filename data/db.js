@@ -8,7 +8,8 @@ const db = {
   getUsers: () => dao('users'),
   getTeams: () => dao('teams'),
   getProjects: () => dao('projects'),
-  getTasksWithUsers: () => dao.raw(`select t.*, u.username from tasks t join users u on u.id = t.user_id`)
+  getTasksWithUsers: () => dao.raw(`select t.*, u.username from tasks t join users u on u.id = t.user_id`),
+  addTeam: (title) => dao('teams').insert({title})
 }
 
 module.exports = db;
