@@ -50,12 +50,12 @@ app.get('/projects', async (req, res) => {
 
 // TODO: check naming convention
 app.get('/projectsByTeamId', async (req, res) => {
-  console.log('Placid Logging: req.params ', req.params);
-  console.log('Placid Logging: req.query ', req.query);
+  console.log('Placid Logging: req.params ', req.params)
+  console.log('Placid Logging: req.query ', req.query)
   try {
     const { teamId } = req.query
-    if(!teamId) {
-      return res.status(400).json({error: 'team id is missing in request'})
+    if (!teamId) {
+      return res.status(400).json({ error: 'team id is missing in request' })
     }
     const projects = await db.getProjectsByTeamId(teamId)
     return res.status(200).json({ projects })
@@ -68,7 +68,6 @@ app.get('/projectsByTeamId', async (req, res) => {
 app.post('/teams', async (req, res) => {
   try {
     const title = req.body.title
-    console.log('Placid Logging: title ', title)
     const insertedIdArr = await db.addTeam(title)
     return res.status(200).json({ team: { id: insertedIdArr[0], title } })
   } catch (err) {
@@ -77,10 +76,16 @@ app.post('/teams', async (req, res) => {
   }
 })
 
-app.post('/project', async (req, res) => {
+app.post('/projects', async (req, res) => {
   try {
     const title = req.body.title
+    if (!title) {
+      return res.status(400).json({ error: 'title is missing in request' })
+    }
     const team_id = req.body.team_id
+    if (!team_id) {
+      return res.status(400).json({ error: 'team_id is missing in request' })
+    }
     await db.addProject(title, team_id)
     return res.status(200).json({ title, team_id })
   } catch (err) {

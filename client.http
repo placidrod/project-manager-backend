@@ -20,12 +20,12 @@ Content-Type: application/json
   "title": "x"
 }
 ###
-POST http://localhost:9970/project
+POST http://localhost:9970/projects
 Content-Type: application/json
 
 {
   "title": "yaay",
-  "team_id": 1
+  "team_id": 2
 }
 
 
