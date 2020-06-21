@@ -7,12 +7,17 @@ GET http://localhost:9970/teams
 ###
 GET http://localhost:9970/projects
 ###
+GET http://localhost:9970/projectsByTeamId/?teamId=1
+###
 
-POST http://localhost:9970/team
+
+
+###
+POST http://localhost:9970/teams
 Content-Type: application/json
 
 {
-  "title": "Yellow"
+  "title": "x"
 }
 ###
 POST http://localhost:9970/project
@@ -22,28 +27,5 @@ Content-Type: application/json
   "title": "yaay",
   "team_id": 1
 }
-###
 
-POST http://localhost:8888/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "admin"
-}
-
-###
-
-GET http://localhost:8888/resource
-
-###
-
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE1Nzk2NzEzNDEsImV4cCI6MTU3OTY4MjE0MX0.Xo0N-WLq0hUToQ_paSb2XjbqtfHwNx2hayqBpFRF_hw
-
-GET http://localhost:8888/resource/secret
-Content-Type: application/json
-Authorization: Bearer {{token}}
-```
-
-###
 

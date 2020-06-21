@@ -1,9 +1,11 @@
 const express = require('express')
-const db = require('../data/db')
 const bp = require('body-parser')
+const cors = require('cors')
+const db = require('../data/db')
 
 const port = process.env.PORT || 9970
 const app = express()
+app.use(cors())
 app.use(bp.json())
 
 app.get('/tasks', async (req, res) => {
@@ -46,11 +48,29 @@ app.get('/projects', async (req, res) => {
   }
 })
 
-app.post('/team', async (req, res) => {
+// TODO: check naming convention
+app.get('/projectsByTeamId', async (req, res) => {
+  console.log('Placid Logging: req.params ', req.params);
+  console.log('Placid Logging: req.query ', req.query);
+  try {
+    const { teamId } = req.query
+    if(!teamId) {
+      return res.status(400).json({error: 'team id is missing in request'})
+    }
+    const projects = await db.getProjectsByTeamId(teamId)
+    return res.status(200).json({ projects })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.post('/teams', async (req, res) => {
   try {
     const title = req.body.title
-    await db.addTeam(title)
-    return res.status(200).json({ title })
+    console.log('Placid Logging: title ', title)
+    const insertedIdArr = await db.addTeam(title)
+    return res.status(200).json({ team: { id: insertedIdArr[0], title } })
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })
@@ -67,6 +87,10 @@ app.post('/project', async (req, res) => {
     console.log(err)
     res.status(500).json({ error: err.message })
   }
+})
+
+app.post('/error', async (req) => {
+  console.log(req.body)
 })
 
 // app.get('/tasksWithUsers', async (req, res) => {
