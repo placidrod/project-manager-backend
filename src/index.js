@@ -50,8 +50,6 @@ app.get('/projects', async (req, res) => {
 
 // TODO: check naming convention
 app.get('/projectsByTeamId', async (req, res) => {
-  console.log('Placid Logging: req.params ', req.params)
-  console.log('Placid Logging: req.query ', req.query)
   try {
     const { teamId } = req.query
     if (!teamId) {
