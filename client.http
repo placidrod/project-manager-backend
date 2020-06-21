@@ -17,14 +17,14 @@ POST http://localhost:9970/teams
 Content-Type: application/json
 
 {
-  "title": "x"
+  "title": "team added from http client"
 }
 ###
 POST http://localhost:9970/projects
 Content-Type: application/json
 
 {
-  "title": "yaay",
+  "title": "project added from http client",
   "team_id": 2
 }
 

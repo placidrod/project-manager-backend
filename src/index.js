@@ -86,8 +86,10 @@ app.post('/projects', async (req, res) => {
     if (!team_id) {
       return res.status(400).json({ error: 'team_id is missing in request' })
     }
-    await db.addProject(title, team_id)
-    return res.status(200).json({ title, team_id })
+    const insertedIdArr = await db.addProject(title, team_id)
+    return res
+      .status(200)
+      .json({ project: { id: insertedIdArr[0], title, team_id } })
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })
