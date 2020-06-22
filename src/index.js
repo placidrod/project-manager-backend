@@ -104,6 +104,26 @@ app.post('/projects', async (req, res) => {
   }
 })
 
+app.post('/tasks', async (req, res) => {
+  try {
+    const description = req.body.description
+    if (!description) {
+      return res.status(400).json({ error: 'description is missing in request' })
+    }
+    const project_id = req.body.project_id
+    if (!project_id) {
+      return res.status(400).json({ error: 'project_id is missing in request' })
+    }
+    const insertedIdArr = await db.addTask(description, project_id)
+    return res
+      .status(200)
+      .json({ project: { id: insertedIdArr[0], description, project_id } })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
 app.post('/error', async (req) => {
   console.log(req.body)
 })

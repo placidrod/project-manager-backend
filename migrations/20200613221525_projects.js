@@ -5,7 +5,7 @@ exports.up = function (knex) {
     CREATE TABLE IF NOT EXISTS ${tableName} (
       id                        integer  primary key,
       title                     text,
-      team_id                   integer,
+      team_id                   integer not null,
       unique(title, team_id)
     )
   `)

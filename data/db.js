@@ -13,6 +13,7 @@ const db = {
   getPhases: () => dao('phases'),
   addTeam: (title) => dao('teams').insert({title}),
   addProject: (title, team_id) => dao('projects').insert({title, team_id}),
+  addTask: (description, project_id) => dao('tasks').insert({description, project_id}),
 }
 
 module.exports = db;

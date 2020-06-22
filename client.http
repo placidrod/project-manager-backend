@@ -27,5 +27,12 @@ Content-Type: application/json
   "title": "project added from http client",
   "team_id": 2
 }
+###
+POST http://localhost:9970/tasks
+Content-Type: application/json
 
+{
+  "description": "task added from http client",
+  "project_id": 2
+}
 
