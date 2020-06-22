@@ -9,7 +9,7 @@ GET http://localhost:9970/projects
 ###
 GET http://localhost:9970/projectsByTeamId/?teamId=1
 ###
-
+GET http://localhost:9970/phases
 
 
 ###

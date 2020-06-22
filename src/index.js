@@ -63,6 +63,16 @@ app.get('/projectsByTeamId', async (req, res) => {
   }
 })
 
+app.get('/phases', async (req, res) => {
+  try {
+    const phases = await db.getPhases()
+    return res.status(200).json({ phases })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
 app.post('/teams', async (req, res) => {
   try {
     const title = req.body.title

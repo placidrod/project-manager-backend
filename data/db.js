@@ -10,6 +10,7 @@ const db = {
   getProjects: () => dao('projects'),
   getProjectsByTeamId: (teamId) => dao('projects').select().where({team_id: teamId}),
   getTasksWithUsers: () => dao.raw(`select t.*, u.username from tasks t join users u on u.id = t.user_id`),
+  getPhases: () => dao('phases'),
   addTeam: (title) => dao('teams').insert({title}),
   addProject: (title, team_id) => dao('projects').insert({title, team_id}),
 }
