@@ -1,6 +1,8 @@
 ###
 GET http://localhost:9970/tasks
 ###
+GET http://localhost:9970/tasksByProjectId/?projectId=2
+###
 GET http://localhost:9970/users
 ###
 GET http://localhost:9970/teams
@@ -32,7 +34,20 @@ POST http://localhost:9970/tasks
 Content-Type: application/json
 
 {
-  "description": "task added from http client",
+  "description": "task 5 added from http client",
   "project_id": 2
 }
+
+###
+PUT http://localhost:9970/tasks
+Content-Type: application/json
+
+{
+  "description": "blue task updated from http client",
+  "project_id": 3,
+  "phase_id": 2,
+  "id": 2
+}
+
+
 

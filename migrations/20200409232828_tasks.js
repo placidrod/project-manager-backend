@@ -6,7 +6,8 @@ exports.up = function (knex) {
       id                        integer  primary key,
       description               text,
       user_id                   integer,
-      project_id                integer not null
+      project_id                integer not null,
+      phase_id                  integer not null
     )
   `)
 }

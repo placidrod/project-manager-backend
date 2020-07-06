@@ -18,6 +18,20 @@ app.get('/tasks', async (req, res) => {
   }
 })
 
+app.get('/tasksByProjectId', async (req, res) => {
+  try {
+    const { projectId } = req.query
+    if (!projectId) {
+      return res.status(400).json({ error: 'project id is missing in request' })
+    }
+    const tasks = await db.getTasksByProjectId(projectId)
+    return res.status(200).json({ tasks })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
 app.get('/users', async (req, res) => {
   try {
     const users = await db.getUsers()
@@ -108,16 +122,47 @@ app.post('/tasks', async (req, res) => {
   try {
     const description = req.body.description
     if (!description) {
-      return res.status(400).json({ error: 'description is missing in request' })
+      return res
+        .status(400)
+        .json({ error: 'description is missing in request' })
     }
     const project_id = req.body.project_id
     if (!project_id) {
       return res.status(400).json({ error: 'project_id is missing in request' })
     }
-    const insertedIdArr = await db.addTask(description, project_id)
+    const result = await db.addTask(description, project_id)
+    return res.status(200).json({ task: result })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.put('/tasks', async (req, res) => {
+  try {
+    const id = req.body.id
+    if (!id) {
+      return res.status(400).json({ error: 'task id is missing in request' })
+    }
+    const description = req.body.description
+    if (!description) {
+      return res
+        .status(400)
+        .json({ error: 'description is missing in request' })
+    }
+    const project_id = req.body.project_id
+    if (!project_id) {
+      return res.status(400).json({ error: 'project_id is missing in request' })
+    }
+    const phase_id = req.body.phase_id
+    if (!phase_id) {
+      return res.status(400).json({ error: 'phase_id is missing in request' })
+    }
+    const user_id = req.body.user_id || null
+    await db.updateTask(id, description, project_id, phase_id, user_id)
     return res
       .status(200)
-      .json({ project: { id: insertedIdArr[0], description, project_id } })
+      .json({ task: { id, description, project_id, phase_id, user_id } })
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })
