@@ -1,10 +1,12 @@
 const tableName = 'phases'
 
 exports.up = function (knex) {
+  // TODO: add phase order
   return knex.raw(`
     CREATE TABLE IF NOT EXISTS ${tableName} (
-      id                        integer  primary key,
-      title                     varchar(100)
+      id                        varchar(255) primary key,
+      title                     varchar(100),
+      phase_order               integer
     )
   `)
 }

@@ -3,11 +3,11 @@ const tableName = 'tasks'
 exports.up = function (knex) {
   return knex.raw(`
     CREATE TABLE IF NOT EXISTS ${tableName} (
-      id                        integer  primary key,
+      id                        varchar(255) primary key,
       description               text,
-      user_id                   integer,
-      project_id                integer not null,
-      phase_id                  integer not null
+      user_id                   varchar(255),
+      project_id                varchar(255),
+      phase_id                  varchar(255)
     )
   `)
 }

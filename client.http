@@ -7,7 +7,7 @@ GET http://localhost:9970/users
 ###
 GET http://localhost:9970/teams
 ###
-GET http://localhost:9970/projects?teamId=1
+GET http://localhost:9970/projects
 ###
 GET http://localhost:9970/phases
 ###
@@ -30,8 +30,8 @@ POST http://localhost:9970/tasks
 Content-Type: application/json
 
 {
-  "description": "task 3",
-  "project_id": 3
+  "description": "task 5",
+  "project_id": "ba782ba0-a45b-4ee5-b9a7-be0aa04f30ca"
 }
 ###
 PUT http://localhost:9970/tasks
@@ -39,9 +39,8 @@ Content-Type: application/json
 
 {
   "description": "blue task updated from http client",
-  "project_id": 1,
-  "phase_id": 1,
-  "id": 1
+  "project_id": "ba782ba0-a45b-4ee5-b9a7-be0aa04f30ca",
+  "id": 
 }
 ###
 
