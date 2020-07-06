@@ -10,21 +10,13 @@ app.use(bp.json())
 
 app.get('/tasks', async (req, res) => {
   try {
-    const tasks = await db.getTasks()
-    return res.status(200).json({ tasks })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ error: err.message })
-  }
-})
-
-app.get('/tasksByProjectId', async (req, res) => {
-  try {
     const { projectId } = req.query
-    if (!projectId) {
-      return res.status(400).json({ error: 'project id is missing in request' })
+    let tasks;
+    if (projectId) {
+      tasks = await db.getTasksByProjectId(projectId)
+    } else {
+      tasks = await db.getTasks()
     }
-    const tasks = await db.getTasksByProjectId(projectId)
     return res.status(200).json({ tasks })
   } catch (err) {
     console.log(err)
@@ -54,22 +46,13 @@ app.get('/teams', async (req, res) => {
 
 app.get('/projects', async (req, res) => {
   try {
-    const projects = await db.getProjects()
-    return res.status(200).json({ projects })
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ error: err.message })
-  }
-})
-
-// TODO: check naming convention
-app.get('/projectsByTeamId', async (req, res) => {
-  try {
+    let projects;
     const { teamId } = req.query
-    if (!teamId) {
-      return res.status(400).json({ error: 'team id is missing in request' })
+    if (teamId) {
+      projects = await db.getProjectsByTeamId(teamId)
+    } else {
+      projects = await db.getProjects()
     }
-    const projects = await db.getProjectsByTeamId(teamId)
     return res.status(200).json({ projects })
   } catch (err) {
     console.log(err)
@@ -172,15 +155,5 @@ app.put('/tasks', async (req, res) => {
 app.post('/error', async (req) => {
   console.log(req.body)
 })
-
-// app.get('/tasksWithUsers', async (req, res) => {
-//   try {
-//     const tasksWithUsers = await db.getTasksWithUsers()
-//     return res.status(200).json({ tasksWithUsers })
-//   } catch (err) {
-//     console.log(err)
-//     res.status(500).json({ error: err.message })
-//   }
-// })
 
 app.listen(port, () => console.log(`Server listening on port ${port}`))
