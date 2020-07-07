@@ -1,5 +1,4 @@
 const tableName = 'phases'
-const { v4: uuidv4 } = require('uuid')
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
