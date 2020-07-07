@@ -31,13 +31,14 @@ const db = {
   addProject: (title, team_id) =>
     dao('projects').insert({ id: uuidv4(), title, team_id }),
 
-  addTask: async (description, project_id) => {
+  addTask: async (description, user_id, project_id) => {
     const firstPhase = await dao('phases').where({ phase_order: 1 })
     // TODO: get the first phase_id for the project and use that to insert new task
     const newId = uuidv4()
     await dao('tasks').insert({
       id: newId,
       description,
+      user_id,
       project_id,
       phase_id: firstPhase[0].id,
     })

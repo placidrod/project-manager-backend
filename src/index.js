@@ -113,7 +113,8 @@ app.post('/tasks', async (req, res) => {
     if (!project_id) {
       return res.status(400).json({ error: 'project_id is missing in request' })
     }
-    const result = await db.addTask(description, project_id)
+    const user_id = req.body.user_id || null;
+    const result = await db.addTask(description, user_id, project_id)
     return res.status(200).json({ task: result })
   } catch (err) {
     console.log(err)
