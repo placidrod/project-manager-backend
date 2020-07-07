@@ -11,7 +11,7 @@ app.use(bp.json())
 app.get('/tasks', async (req, res) => {
   try {
     const { projectId } = req.query
-    let tasks;
+    let tasks
     if (projectId) {
       tasks = await db.getTasksByProjectId(projectId)
     } else {
@@ -46,7 +46,7 @@ app.get('/teams', async (req, res) => {
 
 app.get('/projects', async (req, res) => {
   try {
-    let projects;
+    let projects
     const { teamId } = req.query
     if (teamId) {
       projects = await db.getProjectsByTeamId(teamId)
@@ -72,7 +72,7 @@ app.get('/phases', async (req, res) => {
 
 app.post('/teams', async (req, res) => {
   try {
-    const title = req.body.title
+    const { title } = req.body
     const insertedIdArr = await db.addTeam(title)
     return res.status(200).json({ team: { id: insertedIdArr[0], title } })
   } catch (err) {
@@ -83,11 +83,10 @@ app.post('/teams', async (req, res) => {
 
 app.post('/projects', async (req, res) => {
   try {
-    const title = req.body.title
+    const { title, team_id } = req.body
     if (!title) {
       return res.status(400).json({ error: 'title is missing in request' })
     }
-    const team_id = req.body.team_id
     if (!team_id) {
       return res.status(400).json({ error: 'team_id is missing in request' })
     }
@@ -103,17 +102,16 @@ app.post('/projects', async (req, res) => {
 
 app.post('/tasks', async (req, res) => {
   try {
-    const description = req.body.description
+    const { description, project_id } = req.body
     if (!description) {
       return res
         .status(400)
         .json({ error: 'description is missing in request' })
     }
-    const project_id = req.body.project_id
     if (!project_id) {
       return res.status(400).json({ error: 'project_id is missing in request' })
     }
-    const user_id = req.body.user_id || null;
+    const user_id = req.body.user_id || null
     const result = await db.addTask(description, user_id, project_id)
     return res.status(200).json({ task: result })
   } catch (err) {
@@ -124,21 +122,18 @@ app.post('/tasks', async (req, res) => {
 
 app.put('/tasks', async (req, res) => {
   try {
-    const id = req.body.id
+    const { id, description, project_id, phase_id } = req.body
     if (!id) {
       return res.status(400).json({ error: 'task id is missing in request' })
     }
-    const description = req.body.description
     if (!description) {
       return res
         .status(400)
         .json({ error: 'description is missing in request' })
     }
-    const project_id = req.body.project_id
     if (!project_id) {
       return res.status(400).json({ error: 'project_id is missing in request' })
     }
-    const phase_id = req.body.phase_id
     if (!phase_id) {
       return res.status(400).json({ error: 'phase_id is missing in request' })
     }
