@@ -1,5 +1,5 @@
 {
-  "name": "express-sql",
+  "name": "project-manager-backend",
   "version": "1.0.2",
   "main": "src/index.js",
   "author": "Placid Rodrigues <placidrod@gmail.com>",
