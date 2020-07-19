@@ -2,7 +2,10 @@ const knex = require('knex')
 const config = require('../knexfile.js')
 const { v4: uuidv4 } = require('uuid')
 
-const dao = knex(config.development)
+const dao =
+  process.env.NODE_ENV === 'production'
+    ? knex(config.production)
+    : knex(config.development)
 
 const db = {
   getTasks: () => dao('tasks'),
