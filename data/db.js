@@ -10,6 +10,8 @@ const dao =
 const db = {
   getTasks: () => dao('tasks'),
 
+  getTaskById: (id) => dao('tasks').select().where({id}),
+
   getTasksByProjectId: (projectId) =>
     dao('tasks').select().where({ project_id: projectId }),
 
@@ -57,6 +59,13 @@ const db = {
       .where({ id })
       .update({ description, project_id, phase_id, user_id })
   },
+
+  deleteTask: async (id) => {
+    const deletedRowCount = await dao('tasks')
+      .where({id})
+      .delete()
+    return deletedRowCount
+  }
 }
 
 module.exports = db

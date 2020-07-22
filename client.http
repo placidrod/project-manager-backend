@@ -1,7 +1,7 @@
 ###
 GET http://localhost:9970/tasks
 ###
-GET http://localhost:9970/tasks?projectId=2
+GET http://localhost:9970/tasks?projectId=17293123-1dd0-4f0d-b3b1-8940663c870e
 ###
 GET http://localhost:9970/users
 ###
@@ -40,8 +40,10 @@ Content-Type: application/json
 {
   "description": "blue task updated from http client",
   "project_id": "ba782ba0-a45b-4ee5-b9a7-be0aa04f30ca",
-  "id": 
+  "id": "ca916311-7c1b-4129-8135-0a24da75b993",
+  "phase_id": "08b1b6ef-cbee-4cc9-a745-50ad852ee081"
 }
 ###
-
+DELETE  http://localhost:9970/task/48b6475d-f067-4fbc-813b-f5be40a0fbd9
+###
 

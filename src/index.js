@@ -8,6 +8,12 @@ const app = express()
 app.use(cors())
 app.use(bp.json())
 
+// call this to slow down response
+// eslint-disable-next-line no-unused-vars
+function delay(time = 5000) {
+  return new Promise((resolve) => setTimeout(resolve, time))
+}
+
 app.get('/tasks', async (req, res) => {
   try {
     const { projectId } = req.query
@@ -142,6 +148,38 @@ app.put('/tasks', async (req, res) => {
     return res
       .status(200)
       .json({ task: { id, description, project_id, phase_id, user_id } })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.delete('/task/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    if (!id) {
+      return res.status(400).json({ error: 'task id is missing in request' })
+    }
+    const task = await db.getTaskById(id)
+    if (task.length === 0) {
+      return res.status(500).json({ error: 'task does not exist' })
+    }
+    const deletedRowCount = await db.deleteTask(id)
+    if (deletedRowCount === 1) {
+      return res.status(200).json({ id })
+    } else {
+      const { path, params, query, body, route } = req
+      console.log('error occurred when deleting task', {
+        path,
+        params,
+        query,
+        body,
+        route,
+      })
+      return res
+        .status(500)
+        .json({ error: 'error occurred when deleting task' })
+    }
   } catch (err) {
     console.log(err)
     res.status(500).json({ error: err.message })
